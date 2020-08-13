@@ -62,7 +62,9 @@ public class BallScript : MonoBehaviour
         {
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
-            myRigidBody.velocity += velocityTweak;         
+            myRigidBody.AddForce(velocityTweak);
+            Debug.Log("velocity " + myRigidBody.velocity);
+
         }
     }
 }

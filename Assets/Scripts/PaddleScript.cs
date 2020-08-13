@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PaddleScript : MonoBehaviour
 {
-
-    Rigidbody2D myRigidBody;
-    float speed = 5f;
+    [SerializeField] float minY;
+    [SerializeField] float maxY;
+    float speed = 7f;
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -21,11 +21,10 @@ public class PaddleScript : MonoBehaviour
 
     private void Movement()
     {
-        //simple ship movement
-        myRigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, 0);
-        //keep spaceship in boundaries of camera 
-        Vector2 shipPosition = new Vector2(transform.position.x, transform.position.y);
-        shipPosition.x = Mathf.Clamp(myRigidBody.transform.position.x, speed, speed);
-        myRigidBody.transform.position = shipPosition;
+        float pos = Input.GetAxis("Vertical") * Time.deltaTime * speed;        
+        transform.Translate(pos * Vector2.up);
+        Vector2 paddlePos = new Vector2(transform.position.x, transform.position.y);
+        paddlePos.y = Mathf.Clamp(paddlePos.y, minY, maxY);
+        transform.position = paddlePos;
     }
 }
