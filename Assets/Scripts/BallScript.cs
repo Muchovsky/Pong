@@ -26,6 +26,8 @@ public class BallScript : MonoBehaviour
         currentSpeed = initialSpeed;
         speedIncreaseAfterThisNumberOfHits = 100;
         speedIncreaseFactor = initialSpeed / speedIncreaseAfterThisNumberOfHits;
+
+        GameManager.instance.eventManager.OnBallHitPaddle += IncreaseSpeed;
     }
 
     void Update()
@@ -49,7 +51,12 @@ public class BallScript : MonoBehaviour
 
     private void IncreaseSpeed()
     {
+        Debug.Log("velocity  przed" + myRigidBody.velocity);
         currentSpeed += speedIncreaseFactor;
+       // Mathf.Sign(myRigidBody.velocity.x)
+        myRigidBody.velocity = new Vector2(Mathf.Sign(myRigidBody.velocity.x) * currentSpeed, Mathf.Sign(myRigidBody.velocity.y) * currentSpeed );
+
+        Debug.Log("velocity po" + myRigidBody.velocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
