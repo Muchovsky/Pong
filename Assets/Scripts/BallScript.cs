@@ -51,12 +51,14 @@ public class BallScript : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        Debug.Log("velocity  przed" + myRigidBody.velocity);
+        //   Debug.Log("velocity  przed" + myRigidBody.velocity);
         currentSpeed += speedIncreaseFactor;
-       // Mathf.Sign(myRigidBody.velocity.x)
-        myRigidBody.velocity = new Vector2(Mathf.Sign(myRigidBody.velocity.x) * currentSpeed, Mathf.Sign(myRigidBody.velocity.y) * currentSpeed );
+        float xsign = Mathf.Sign(myRigidBody.velocity.x);
+        float ysign = Mathf.Sign(myRigidBody.velocity.x);
+        // Mathf.Sign(myRigidBody.velocity.x)
+        myRigidBody.velocity = new Vector2(xsign * currentSpeed, ysign * currentSpeed);
 
-        Debug.Log("velocity po" + myRigidBody.velocity);
+        // Debug.Log("velocity po" + myRigidBody.velocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
