@@ -17,6 +17,7 @@ public class BallScript : MonoBehaviour
     bool hasStarted = false;
     Rigidbody2D myRigidBody;
     AudioSource myAudioSource;
+    Vector2 BallStartingPosition;
 
     void Start()
     {
@@ -26,8 +27,9 @@ public class BallScript : MonoBehaviour
         currentSpeed = initialSpeed;
         speedIncreaseAfterThisNumberOfHits = 100;
         speedIncreaseFactor = initialSpeed / speedIncreaseAfterThisNumberOfHits;
-
+        BallStartingPosition = transform.position;
         GameManager.instance.eventManager.OnBallHitPaddle += IncreaseSpeed;
+        GameManager.instance.eventManager.OnBallLeavePlayArea += SpawnBall;
     }
 
     void Update()
@@ -36,6 +38,13 @@ public class BallScript : MonoBehaviour
         {
             LaunchBall();
         }
+    }
+
+    private void SpawnBall()
+    {
+        hasStarted = false;
+        transform.position = BallStartingPosition;
+        myRigidBody.velocity = Vector2.zero;
     }
 
     private void LaunchBall()
@@ -50,15 +59,12 @@ public class BallScript : MonoBehaviour
     }
 
     private void IncreaseSpeed()
-    {
-        //   Debug.Log("velocity  przed" + myRigidBody.velocity);
+    {      
         currentSpeed += speedIncreaseFactor;
         float xsign = Mathf.Sign(myRigidBody.velocity.x);
-        float ysign = Mathf.Sign(myRigidBody.velocity.x);
-        // Mathf.Sign(myRigidBody.velocity.x)
-        myRigidBody.velocity = new Vector2(xsign * currentSpeed, ysign * currentSpeed);
-
-        // Debug.Log("velocity po" + myRigidBody.velocity);
+        float ysign = Mathf.Sign(myRigidBody.velocity.y);    
+        var tmpVelo = new Vector2(xsign * speedIncreaseFactor + myRigidBody.velocity.x, ysign * speedIncreaseFactor + myRigidBody.velocity.y);
+        myRigidBody.velocity = tmpVelo;        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -71,9 +77,10 @@ public class BallScript : MonoBehaviour
         {
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
-            myRigidBody.AddForce(velocityTweak);
-            Debug.Log("velocity " + myRigidBody.velocity);
-
+            if (collision.gameObject.tag != "Paddle")
+            {
+                myRigidBody.AddForce(velocityTweak);            
+            }
         }
     }
 }
