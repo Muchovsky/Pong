@@ -14,13 +14,16 @@ public class BallScript : MonoBehaviour
     float randomFactor = 0.2f;
     [SerializeField]
     AudioClip[] ballSounds;
-    bool hasStarted = false;
+    bool hasStarted;
+    bool gameOver;
     Rigidbody2D myRigidBody;
     AudioSource myAudioSource;
     Vector2 BallStartingPosition;
 
     void Start()
     {
+        hasStarted = false;
+        gameOver = false;
         myRigidBody = GetComponent<Rigidbody2D>();
         myAudioSource = GetComponent<AudioSource>();
         initialSpeed = 5f;
@@ -30,11 +33,12 @@ public class BallScript : MonoBehaviour
         BallStartingPosition = transform.position;
         GameManager.instance.eventManager.OnBallHitPaddle += IncreaseSpeed;
         GameManager.instance.eventManager.OnBallLeavePlayArea += SpawnBall;
+        GameManager.instance.eventManager.OnGameOver += LockBall;
     }
 
     void Update()
     {
-        if (!hasStarted)
+        if (!hasStarted && !gameOver)
         {
             LaunchBall();
         }
@@ -58,17 +62,23 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    private void LockBall()
+    {
+        gameOver = true;
+    }
+
     private void IncreaseSpeed()
-    {      
+    {
         currentSpeed += speedIncreaseFactor;
         float xsign = Mathf.Sign(myRigidBody.velocity.x);
-        float ysign = Mathf.Sign(myRigidBody.velocity.y);    
+        float ysign = Mathf.Sign(myRigidBody.velocity.y);
         var tmpVelo = new Vector2(xsign * speedIncreaseFactor + myRigidBody.velocity.x, ysign * speedIncreaseFactor + myRigidBody.velocity.y);
-        myRigidBody.velocity = tmpVelo;        
+        myRigidBody.velocity = tmpVelo;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //ad force to prevent endless bounce on one axis
         float x = Random.Range(0, 2) == 0 ? -1 * randomFactor : randomFactor;
         float y = Random.Range(0, 2) == 0 ? -1 * randomFactor : randomFactor;
         Vector2 velocityTweak = new Vector2(x, y);
@@ -79,7 +89,7 @@ public class BallScript : MonoBehaviour
             myAudioSource.PlayOneShot(clip);
             if (collision.gameObject.tag != "Paddle")
             {
-                myRigidBody.AddForce(velocityTweak);            
+                myRigidBody.AddForce(velocityTweak);
             }
         }
     }

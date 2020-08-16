@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PaddleScript : MonoBehaviour
 {
-    [SerializeField] float minY;
-    [SerializeField] float maxY;
+    [SerializeField]
+    private float minY;
+    [SerializeField]
+    private float maxY;
     float speed = 8f;
-
-    // Start is called before the first frame update
-    void Start()
-    {       
-    }
 
     // Update is called once per frame
     void Update()

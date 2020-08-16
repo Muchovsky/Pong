@@ -7,14 +7,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
-    [SerializeField] int pointsPerHit = 1;
-    [SerializeField] int startigHP = 3;
-    [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] TextMeshProUGUI hpText;
-    [SerializeField] public EventsManager eventManager;
-
-    int currentHp;
-    int currentPoints;
+    [SerializeField]
+    private int pointsPerHit = 1;
+    [SerializeField]
+    private int startigHP = 3;
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+    [SerializeField]
+    private TextMeshProUGUI hpText;  
+    [SerializeField]
+    private SceneController sceneController;
+    [SerializeField]
+    public EventsManager eventManager;
+    public int currentHp;
+    public int currentPoints;
     private void Awake()
     {
         if (instance == null)
@@ -32,6 +38,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentHp = startigHP;
+        currentPoints = 0;
         eventManager.OnBallHitPaddle += GivePoints;
         eventManager.OnBallLeavePlayArea += TakeLive;
         scoreText.text = "Score: " + currentPoints.ToString();
@@ -44,7 +51,7 @@ public class GameManager : MonoBehaviour
         hpText.text = "Lives: " + currentHp.ToString();
         if (currentHp <= 0)
         {
-            Debug.Log("GameOver");
+            eventManager.GameOver();
         }
     }
 
@@ -52,11 +59,5 @@ public class GameManager : MonoBehaviour
     {
         currentPoints += pointsPerHit;
         scoreText.text = "Score: " + currentPoints.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

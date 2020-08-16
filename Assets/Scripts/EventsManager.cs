@@ -16,4 +16,10 @@ public class EventsManager : MonoBehaviour
     {
         OnBallLeavePlayArea();
     }
+
+    public event Action OnGameOver;
+    public void GameOver()
+    {
+        OnGameOver();
+    }
 }
