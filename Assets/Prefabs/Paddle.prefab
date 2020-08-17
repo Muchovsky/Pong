@@ -124,3 +124,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minY: 1.25
   maxY: 7.75
+  speed: 8

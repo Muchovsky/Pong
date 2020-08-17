@@ -135,9 +135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ecbcc88ad7ba418fa0cdd9e749841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 0
-  currentSpeed: 0
-  speedIncreaseAfterThisNumberOfHits: 0
+  initialSpeed: 5
+  speedIncreaseAfterThisNumberOfHits: 100
+  randomFactor: 0.2
   ballSounds:
   - {fileID: 8300000, guid: 14bde4c4ca913f54094b2defe27c92e0, type: 3}
   - {fileID: 8300000, guid: b7c615409e09ac6449003ff94e6d4c02, type: 3}

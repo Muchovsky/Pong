@@ -10,7 +10,9 @@ public class BallScript : MonoBehaviour
     [SerializeField]
     [Range(50, 200)]
     private int speedIncreaseAfterThisNumberOfHits;
-    private float randomFactor = 0.2f;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    private float randomFactor;
     [SerializeField]
     private AudioClip[] ballSounds;
     private bool hasStarted;
@@ -20,7 +22,7 @@ public class BallScript : MonoBehaviour
 
     void Start()
     {
-        hasStarted = false;    
+        hasStarted = false;
         myRigidBody = GetComponent<Rigidbody2D>();
         myAudioSource = GetComponent<AudioSource>();
         currentSpeed = initialSpeed;
@@ -68,7 +70,7 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //ad force to prevent endless bounce on one axis
+        // ad force to prevent endless bounce on one axis
         float x = Random.Range(0, 2) == 0 ? -1 * randomFactor : randomFactor;
         float y = Random.Range(0, 2) == 0 ? -1 * randomFactor : randomFactor;
         Vector2 velocityTweak = new Vector2(x, y);
@@ -79,7 +81,8 @@ public class BallScript : MonoBehaviour
             myAudioSource.PlayOneShot(clip);
             if (collision.gameObject.tag != "Paddle")
             {
-                myRigidBody.AddForce(velocityTweak);
+                Debug.Log("velocity  " + myRigidBody.velocity);
+                myRigidBody.AddForce(velocityTweak, ForceMode2D.Impulse);
             }
         }
     }
