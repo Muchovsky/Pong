@@ -20,4 +20,10 @@ public class EventsManager : MonoBehaviour
     {
         OnGameOver();
     }
+
+    public event Action OnHighScoreBeat;
+    public void HighScoreBeat()
+    {
+        OnHighScoreBeat();
+    }
 }

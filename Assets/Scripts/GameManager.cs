@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private SceneController sceneController;
     [SerializeField]
     public EventsManager eventManager;
+    [SerializeField]
+    public HighScoresScript highScore;
     private int currentHp;
     public int currentPoints;
     private void Awake()
@@ -56,5 +58,10 @@ public class GameManager : MonoBehaviour
     {
         currentPoints += pointsPerHit;
         scoreText.text = "Score: " + currentPoints.ToString();
+    }
+
+    public void ResetGame()
+    {
+        Destroy(gameObject);
     }
 }
