@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,7 +16,7 @@ public class GameManager : MonoBehaviour
     private SceneController sceneController;
     [SerializeField]
     public EventsManager eventManager;
-    public int currentHp;
+    private int currentHp;
     public int currentPoints;
     private void Awake()
     {

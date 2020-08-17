@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PaddleScript : MonoBehaviour
 {
@@ -8,9 +6,8 @@ public class PaddleScript : MonoBehaviour
     private float minY;
     [SerializeField]
     private float maxY;
-    float speed = 8f;
+    private float speed = 8f;
 
-    // Update is called once per frame
     void Update()
     {
         Movement();

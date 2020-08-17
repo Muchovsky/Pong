@@ -1,24 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
+    private float initialSpeed;
+    private float currentSpeed;
+    private float speedIncreaseFactor;   
+    private int speedIncreaseAfterThisNumberOfHits;
+    private float randomFactor = 0.2f;
     [SerializeField]
-    float initialSpeed;
-    [SerializeField]
-    float currentSpeed;
-    float speedIncreaseFactor;
-    [SerializeField]
-    int speedIncreaseAfterThisNumberOfHits;
-    float randomFactor = 0.2f;
-    [SerializeField]
-    AudioClip[] ballSounds;
-    bool hasStarted;
-    bool gameOver;
-    Rigidbody2D myRigidBody;
-    AudioSource myAudioSource;
-    Vector2 BallStartingPosition;
+    private AudioClip[] ballSounds;
+    private bool hasStarted;
+    private bool gameOver;
+    private Rigidbody2D myRigidBody;
+    private AudioSource myAudioSource;
+    private Vector2 BallStartingPosition;
 
     void Start()
     {
