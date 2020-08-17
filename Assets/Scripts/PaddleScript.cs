@@ -6,7 +6,9 @@ public class PaddleScript : MonoBehaviour
     private float minY;
     [SerializeField]
     private float maxY;
-    private float speed = 8f;
+    [SerializeField]
+    [Range(2f, 10f)]
+    private float speed;
 
     void Update()
     {
@@ -15,13 +17,16 @@ public class PaddleScript : MonoBehaviour
 
     private void Movement()
     {
-        float pos = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(pos * Vector2.up);
-        Vector2 paddlePos = new Vector2(transform.position.x, transform.position.y);
-        paddlePos.y = Mathf.Clamp(paddlePos.y, minY, maxY);
-        transform.position = paddlePos;
+        if (!GameManager.instance.gameOver)
+        {
+            float pos = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+            transform.Translate(pos * Vector2.up);
+            Vector2 paddlePos = new Vector2(transform.position.x, transform.position.y);
+            paddlePos.y = Mathf.Clamp(paddlePos.y, minY, maxY);
+            transform.position = paddlePos;
+        }
     }
-  
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ball")

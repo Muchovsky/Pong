@@ -2,38 +2,38 @@
 
 public class BallScript : MonoBehaviour
 {
+    [SerializeField]
+    [Range(1f, 10f)]
     private float initialSpeed;
     private float currentSpeed;
-    private float speedIncreaseFactor;   
+    private float speedIncreaseFactor;
+    [SerializeField]
+    [Range(50, 200)]
     private int speedIncreaseAfterThisNumberOfHits;
     private float randomFactor = 0.2f;
     [SerializeField]
     private AudioClip[] ballSounds;
     private bool hasStarted;
-    private bool gameOver;
     private Rigidbody2D myRigidBody;
     private AudioSource myAudioSource;
     private Vector2 BallStartingPosition;
 
     void Start()
     {
-        hasStarted = false;
-        gameOver = false;
+        hasStarted = false;    
         myRigidBody = GetComponent<Rigidbody2D>();
         myAudioSource = GetComponent<AudioSource>();
-        initialSpeed = 5f;
         currentSpeed = initialSpeed;
-        speedIncreaseAfterThisNumberOfHits = 100;
         speedIncreaseFactor = initialSpeed / speedIncreaseAfterThisNumberOfHits;
         BallStartingPosition = transform.position;
         GameManager.instance.eventManager.OnBallHitPaddle += IncreaseSpeed;
         GameManager.instance.eventManager.OnBallLeavePlayArea += SpawnBall;
-        GameManager.instance.eventManager.OnGameOver += LockBall;
+        // GameManager.instance.eventManager.OnMoseDown += LaunchBall;
     }
 
-    void Update()
+    private void Update()
     {
-        if (!hasStarted && !gameOver)
+        if (Input.GetMouseButtonDown(0))
         {
             LaunchBall();
         }
@@ -48,7 +48,7 @@ public class BallScript : MonoBehaviour
 
     private void LaunchBall()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!hasStarted && !GameManager.instance.gameOver)
         {
             hasStarted = true;
             float x = Random.Range(0, 2) == 0 ? -1 : 1;
@@ -57,18 +57,13 @@ public class BallScript : MonoBehaviour
         }
     }
 
-    private void LockBall()
-    {
-        gameOver = true;
-    }
-
     private void IncreaseSpeed()
     {
         currentSpeed += speedIncreaseFactor;
         float xsign = Mathf.Sign(myRigidBody.velocity.x);
         float ysign = Mathf.Sign(myRigidBody.velocity.y);
-        var tmpVelo = new Vector2(xsign * speedIncreaseFactor + myRigidBody.velocity.x, ysign * speedIncreaseFactor + myRigidBody.velocity.y);
-        myRigidBody.velocity = tmpVelo;
+        var newVelocity = new Vector2(xsign * speedIncreaseFactor + myRigidBody.velocity.x, ysign * speedIncreaseFactor + myRigidBody.velocity.y);
+        myRigidBody.velocity = newVelocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

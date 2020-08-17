@@ -467,9 +467,10 @@ MonoBehaviour:
   scoreText: {fileID: 1550849933}
   hpText: {fileID: 1507335965}
   sceneController: {fileID: 945458110}
-  eventManager: {fileID: 889452291}
+  eventManager: {fileID: 0}
   highScore: {fileID: 134272512}
   currentPoints: 0
+  gameOver: 0
 --- !u!1 &252546028
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+  m_Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0.2627451}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -894,8 +895,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889452290}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1562646, y: 3.8438687, z: -12.637588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 244063348}
@@ -2025,6 +2026,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1748833665556023446, guid: 0a5d682ca9042d74ca16c21867d01d8d,
+        type: 3}
+      propertyPath: initialSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748833665556023446, guid: 0a5d682ca9042d74ca16c21867d01d8d,
+        type: 3}
+      propertyPath: speedIncreaseAfterThisNumberOfHits
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a5d682ca9042d74ca16c21867d01d8d, type: 3}
 --- !u!1001 &6426645607685027528
@@ -2034,6 +2045,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6426645606533220368, guid: 9239c2026c58ed044b03e873a1c2ee35,
+        type: 3}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6426645606533220379, guid: 9239c2026c58ed044b03e873a1c2ee35,
         type: 3}
       propertyPath: m_Name

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI scoreText;
     [SerializeField]
-    private TextMeshProUGUI hpText;  
+    private TextMeshProUGUI hpText;
     [SerializeField]
     private SceneController sceneController;
     [SerializeField]
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public HighScoresScript highScore;
     private int currentHp;
     public int currentPoints;
+    public bool gameOver;
+
     private void Awake()
     {
         if (instance == null)
@@ -31,6 +33,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        sceneController = GetComponentInChildren<SceneController>();
+        eventManager = GetComponentInChildren<EventsManager>();
+        highScore = GetComponentInChildren<HighScoresScript>();
     }
 
     // Start is called before the first frame update
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         currentHp = startigHP;
         currentPoints = 0;
+        gameOver = false;
         eventManager.OnBallHitPaddle += GivePoints;
         eventManager.OnBallLeavePlayArea += TakeLive;
         scoreText.text = "Score: " + currentPoints.ToString();
@@ -50,6 +57,7 @@ public class GameManager : MonoBehaviour
         hpText.text = "Lives: " + currentHp.ToString();
         if (currentHp <= 0)
         {
+            gameOver = true;
             eventManager.GameOver();
         }
     }

@@ -4,26 +4,12 @@ using UnityEngine;
 public class EventsManager : MonoBehaviour
 {
     public event Action OnBallHitPaddle;
-    public void BallHitPaddle()
-    {
-        OnBallHitPaddle();
-    }
-
     public event Action OnBallLeavePlayArea;
-    public void BallLeavePlayArea()
-    {
-        OnBallLeavePlayArea();
-    }
-
     public event Action OnGameOver;
-    public void GameOver()
-    {
-        OnGameOver();
-    }
-
     public event Action OnHighScoreBeat;
-    public void HighScoreBeat()
-    {
-        OnHighScoreBeat();
-    }
+
+    public void BallHitPaddle() => OnBallHitPaddle?.Invoke();
+    public void BallLeavePlayArea() => OnBallLeavePlayArea?.Invoke();
+    public void GameOver() => OnGameOver?.Invoke();
+    public void HighScoreBeat() => OnHighScoreBeat?.Invoke();
 }
