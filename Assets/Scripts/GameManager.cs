@@ -5,21 +5,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     [SerializeField]
+    [Range(1, 5)]
     private int pointsPerHit = 1;
     [SerializeField]
+    [Range(1, 10)]
     private int startigHP = 3;
     [SerializeField]
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI hpText;
-    [SerializeField]
     private SceneController sceneController;
-    [SerializeField]
+    [HideInInspector]
     public EventsManager eventManager;
-    [SerializeField]
+    [HideInInspector]
     public HighScoresScript highScore;
+    [HideInInspector]
     private int currentHp;
+    [HideInInspector]
     public int currentPoints;
+    [HideInInspector]
     public bool gameOver;
 
     private void Awake()
