@@ -30,7 +30,6 @@ public class BallScript : MonoBehaviour
         BallStartingPosition = transform.position;
         GameManager.instance.eventManager.OnBallHitPaddle += IncreaseSpeed;
         GameManager.instance.eventManager.OnBallLeavePlayArea += SpawnBall;
-        // GameManager.instance.eventManager.OnMoseDown += LaunchBall;
     }
 
     private void Update()
@@ -80,8 +79,7 @@ public class BallScript : MonoBehaviour
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
             if (collision.gameObject.tag != "Paddle")
-            {
-                Debug.Log("velocity  " + myRigidBody.velocity);
+            {                
                 myRigidBody.AddForce(velocityTweak, ForceMode2D.Impulse);
             }
         }
