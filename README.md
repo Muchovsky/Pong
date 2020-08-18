@@ -9,3 +9,10 @@ SoloPong
 * Gracz posiada 3 "życia", które traci jeżeli nie uda mu się odbić piłki
 * Po utracie wszystkich żyć wyświetla się ekran końca gry z wyświetlonym uzyskanym wynikiem i informacją o najlepszym wyniku
 * Piłka zwiększa swoją prędkość o 1/100 wartości początkowej co każde odbicie (czyli po 100 odbiciach poruszać się będzie 2x szybciej niż na początku)
+
+Menu obsługiwane jest za pomocą myszki.
+Do sterowania paletką wykorzystywane są przyciski strzałek (góra i dół) lub przyciski "w" i "s"
+Do wystrzelenia piłki używany jest lewy przycisk myszki.
+Projekt przygotowany w rozdzielczości 1920x1080.
+
+Dźwięki piłki pochodzą z paczki https://kenney.itch.io/
